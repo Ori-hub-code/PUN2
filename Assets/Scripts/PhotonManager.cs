@@ -116,6 +116,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
             // 유저 아이디 할당
             userID = uiManager.userIDInput.text;
+            uiManager.userIDInput.text = "";
             PhotonNetwork.NickName = userID;
 
             // 포톤 서버와 통신 횟수 설정 -> 기본값은 초당 30회

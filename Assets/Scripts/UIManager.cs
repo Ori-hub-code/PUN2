@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
 
     [Header ("# Object")]
     public TMP_InputField userIDInput;
+    public TMP_InputField textInput;
 
     // ΩÃ±€≈Ê
     public static UIManager instance;
