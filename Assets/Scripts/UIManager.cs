@@ -6,10 +6,21 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    InputField userIDInput;
+    public PhotonManager photonManager;
 
-    public void StartButton()
+    [Header ("# Object")]
+    public TMP_InputField userIDInput;
+
+    // ΩÃ±€≈Ê
+    public static UIManager instance;
+
+    private void Awake()
     {
+        instance = this;
+    }
 
+    public void ExitGameButton()
+    {
+        Application.Quit();
     }
 }

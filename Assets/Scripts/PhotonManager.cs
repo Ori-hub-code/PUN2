@@ -4,36 +4,26 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using WebSocketSharp;
 
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
     // 버전
     private readonly string version = "1.0f";
 
+    public UIManager uiManager;
+
     [Header("# Prefab")]
     public GameObject playerPrefab;
     PhotonView pv;
 
     [Header("# Player")]
-    public string masterName = "Test"; // 사용자 이름
+    public string userID;
     public PhotonView myPlayer;
 
     private void Awake()
     {
-        // 같은 룸의 유저들에게 자동으로 씬을 로딩
-        PhotonNetwork.AutomaticallySyncScene = true;
-
-        // 같은 버전의 유저끼리 접속 허용
-        PhotonNetwork.GameVersion = version;
-
-        // 유저 아이디 할당
-        PhotonNetwork.NickName = masterName;
-
-        // 포톤 서버와 통신 횟수 설정 -> 기본값은 초당 30회
-        Debug.Log(PhotonNetwork.SendRate);
-
-        // 서버 접속
-        PhotonNetwork.ConnectUsingSettings();
+        uiManager = UIManager.instance;
     }
 
     // 포톤 서버에 접속 후 호출되는 콜백 함수
@@ -92,9 +82,47 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         //PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint, Quaternion.identity, 0);
     }
 
-    // 포톤 Lobby 퇴장 시 실행되는 콜백함수
-    public override void OnLeftLobby()
+    // 플레이어가 입장했을 때 실행되는 함수
+    public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        pv.RPC("LeftPhoton", RpcTarget.All, myPlayer.ViewID);
+        Debug.Log($"{newPlayer.NickName} 님이 입장하셨습니다.");
+    }
+
+    // 플레이어가 퇴장했을 때 실행되는 함수
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Debug.Log($"{otherPlayer.NickName} 님이 퇴장하셨습니다.");
+    }
+
+
+
+
+    // # 인게임 버튼
+
+    // 채팅 참여 버튼
+    public void JoinChatButton()
+    {
+        if(uiManager.userIDInput.text.IsNullOrEmpty())
+        {
+            Debug.Log("아이디를 입력해주세요");
+        } 
+        else
+        {
+            // 같은 룸의 유저들에게 자동으로 씬을 로딩
+            PhotonNetwork.AutomaticallySyncScene = true;
+
+            // 같은 버전의 유저끼리 접속 허용
+            PhotonNetwork.GameVersion = version;
+
+            // 유저 아이디 할당
+            userID = uiManager.userIDInput.text;
+            PhotonNetwork.NickName = userID;
+
+            // 포톤 서버와 통신 횟수 설정 -> 기본값은 초당 30회
+            Debug.Log(PhotonNetwork.SendRate);
+
+            // 서버 접속
+            PhotonNetwork.ConnectUsingSettings();
+        }
     }
 }
