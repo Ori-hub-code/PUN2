@@ -137,6 +137,19 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
     }
 
+    // 메세지 보내기
+    public void SendMyText()
+    {
+        if(!uiManager.textInput.text.IsNullOrEmpty())
+        {
+            PhotonNetwork.Instantiate(chatBoxPrefab.name, transform.position, Quaternion.identity, 0);
+        } 
+        else
+        {
+            Debug.Log("텍스트를 입력해주세요.");
+        }
+    }
+
 
     // 퇴장 시 관련 데이터 삭제
     [PunRPC]
