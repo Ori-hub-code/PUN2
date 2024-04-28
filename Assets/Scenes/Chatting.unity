@@ -1663,7 +1663,7 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &907332193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1874,7 +1874,6 @@ MonoBehaviour:
   textBoxParent: {fileID: 907332192}
   playerNameParent: {fileID: 726328486}
   infoBox: {fileID: 29104669}
-  smoothTime: 1
 --- !u!4 &943745493
 Transform:
   m_ObjectHideFlags: 0
