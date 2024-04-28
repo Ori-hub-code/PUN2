@@ -1,18 +1,26 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ChatBox : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    UIManager uiManager;
+    public PhotonView pv;
+    public TextMeshProUGUI chatText;
+
+    private void Awake()
     {
-        
+        uiManager = UIManager.instance;
+        pv = GetComponent<PhotonView>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        if(pv.IsMine)
+        {
+            transform.SetParent(uiManager.textBoxParent);
+        }
     }
 }

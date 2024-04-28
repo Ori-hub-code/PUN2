@@ -3,6 +3,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using WebSocketSharp;
 
@@ -12,18 +13,21 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     private readonly string version = "1.0f";
 
     public UIManager uiManager;
+    PhotonView pv;
 
     [Header("# Prefab")]
     public GameObject playerPrefab;
-    PhotonView pv;
+    public GameObject chatBoxPrefab;
 
     [Header("# Player")]
-    public string userID;
-    public PhotonView myPlayer;
+    public string userName;
+    public List<GameObject> playerList;
 
     private void Awake()
     {
         uiManager = UIManager.instance;
+        pv = GetComponent<PhotonView>();
+        playerList = new List<GameObject>();
     }
 
     // 포톤 서버에 접속 후 호출되는 콜백 함수
@@ -78,8 +82,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             Debug.Log($"{player.Value.NickName},{player.Value.ActorNumber}"); // 이름과 고유값 출력
         }
 
-        // 캐릭터 생성
-        //PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint, Quaternion.identity, 0);
+        // 플레이어 이름 상자 생성
+        PhotonNetwork.Instantiate(playerPrefab.name, transform.position, Quaternion.identity, 0);
     }
 
     // 플레이어가 입장했을 때 실행되는 함수
@@ -92,6 +96,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         Debug.Log($"{otherPlayer.NickName} 님이 퇴장하셨습니다.");
+
+        pv.RPC("DeleteMyData", RpcTarget.AllBuffered, otherPlayer.ActorNumber);
     }
 
 
@@ -102,12 +108,16 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     // 채팅 참여 버튼
     public void JoinChatButton()
     {
-        if(uiManager.userIDInput.text.IsNullOrEmpty())
+        if (uiManager.userIDInput.text.IsNullOrEmpty())
         {
             Debug.Log("아이디를 입력해주세요");
-        } 
+        }
         else
         {
+            // 화면 전환
+            uiManager.loginCanvas.SetActive(false);
+            uiManager.chattingCanvas.SetActive(true);
+
             // 같은 룸의 유저들에게 자동으로 씬을 로딩
             PhotonNetwork.AutomaticallySyncScene = true;
 
@@ -115,15 +125,31 @@ public class PhotonManager : MonoBehaviourPunCallbacks
             PhotonNetwork.GameVersion = version;
 
             // 유저 아이디 할당
-            userID = uiManager.userIDInput.text;
-            uiManager.userIDInput.text = "";
-            PhotonNetwork.NickName = userID;
+            userName = uiManager.userIDInput.text;
+            uiManager.userIDInput.text = ""; // 초기화
+            PhotonNetwork.NickName = userName;
 
             // 포톤 서버와 통신 횟수 설정 -> 기본값은 초당 30회
             Debug.Log(PhotonNetwork.SendRate);
 
             // 서버 접속
             PhotonNetwork.ConnectUsingSettings();
+        }
+    }
+
+
+    // 퇴장 시 관련 데이터 삭제
+    [PunRPC]
+    void DeleteMyData(int actorNum)
+    {
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            PhotonView playerPV = playerList[i].GetComponent<PhotonView>();
+
+            if (playerPV.ViewID / 1000 == actorNum)
+            {
+                playerList.Remove(playerList[i].gameObject);
+            }
         }
     }
 }
