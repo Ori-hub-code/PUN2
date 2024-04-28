@@ -21,14 +21,14 @@ public class ChatBox : MonoBehaviour
 
     private void OnEnable()
     {
-        if(pv.IsMine)
+        transform.SetParent(uiManager.textBoxParent);
+
+        if (pv.IsMine)
         {
             pv.RPC("SetText", RpcTarget.AllBuffered, uiManager.textInput.text);
             uiManager.textInput.text = ""; // input field √ ±‚»≠
             img.color = Color.yellow;
         }
-
-        transform.SetParent(uiManager.textBoxParent, false);
     }
 
     [PunRPC]
