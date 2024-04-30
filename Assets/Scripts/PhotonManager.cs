@@ -58,6 +58,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         roomOptions.MaxPlayers = 20;              // 최대 접속자 수 : 20명
         roomOptions.IsOpen = true;                // 룸의 오픈 여부
         roomOptions.IsVisible = true;             // 로비에서 룸 목록에 노출 시킬지 여부
+        roomOptions.CleanupCacheOnLeave = false;  // 포톤 서버를 종료해도 본인이 생성한 오브젝트를 자동으로 삭제 안함.
 
         // 룸 생성
         PhotonNetwork.CreateRoom("My Room", roomOptions);
@@ -161,6 +162,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
             if (playerPV.ViewID / 1000 == actorNum)
             {
+                Destroy(playerList[i].gameObject);
                 playerList.Remove(playerList[i].gameObject);
             }
         }
