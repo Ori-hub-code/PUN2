@@ -9,20 +9,14 @@ public class ChatBox : MonoBehaviour
 {
     UIManager uiManager;
     public PhotonView pv;
-
-    // My Text Box
-    public GameObject myTextBox;
-    public TextMeshProUGUI MyChatText;
-
-
-    // Other Text Box
-    public GameObject otherTextBox;
-    public TextMeshProUGUI OtherChatText;
+    Image img; // 배경 이미지
+    public TextMeshProUGUI chatText; // 텍스트
 
     private void Awake()
     {
         uiManager = UIManager.instance;
         pv = GetComponent<PhotonView>();
+        img = GetComponent<Image>();
     }
 
     private void OnEnable()
@@ -33,13 +27,14 @@ public class ChatBox : MonoBehaviour
         {
             pv.RPC("SetText", RpcTarget.AllBuffered, uiManager.textInput.text);
             uiManager.textInput.text = ""; // input field 초기화
-        } 
+            img.color = Color.yellow;
+        }
     }
 
     [PunRPC]
     void SetText(string text)
     {
-        MyChatText.text = ""; // 초기화
+        chatText.text = ""; // 초기화
 
         // 줄바꿈
         char[] textWords = text.ToCharArray();
@@ -48,11 +43,11 @@ public class ChatBox : MonoBehaviour
         {
             if(i % 20 == 0 && i != 0)
             {
-                MyChatText.text += System.Environment.NewLine + textWords[i];
+                chatText.text += System.Environment.NewLine + textWords[i];
             } 
             else
             {
-                MyChatText.text += textWords[i];
+                chatText.text += textWords[i];
             }
         }
     }
