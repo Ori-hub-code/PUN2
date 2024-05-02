@@ -39,7 +39,21 @@ public class PlayerNameBox : MonoBehaviour
     [PunRPC]
     void SetPlayerBox(string name)
     {
-        playerNameText.text = name;
         uiManager.photonManager.playerList.Add(this.gameObject);
+
+        // ¡ŸπŸ≤ﬁ
+        char[] textWords = name.ToCharArray();
+
+        for (int i = 0; i < textWords.Length; i++)
+        {
+            if (i % 15 == 0 && i != 0)
+            {
+                playerNameText.text += System.Environment.NewLine + textWords[i];
+            }
+            else
+            {
+                playerNameText.text += textWords[i];
+            }
+        }
     }
 }
