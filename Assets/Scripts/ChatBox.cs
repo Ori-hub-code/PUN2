@@ -41,7 +41,6 @@ public class ChatBox : MonoBehaviour
             chatBackImage.color = Color.gray;
         }
 
-        //pv.RPC("SetText", RpcTarget.AllBuffered, uiManager.textInput.text);
         uiManager.textInput.text = ""; // input field √ ±‚»≠
     }
 

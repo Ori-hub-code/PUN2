@@ -3,19 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerNameBox : MonoBehaviour
 {
     UIManager uiManager;
     public PhotonView pv;
 
-    TextMeshProUGUI playerNameText;
+    public TextMeshProUGUI playerNameText;
+    Image backGroundImg;
 
     private void Awake()
     {
         uiManager = UIManager.instance;
         pv = GetComponent<PhotonView>();
-        playerNameText = GetComponent<TextMeshProUGUI>();
+
+        backGroundImg = GetComponent<Image>();
     }
 
     private void OnEnable()
@@ -25,6 +28,11 @@ public class PlayerNameBox : MonoBehaviour
         if(pv.IsMine)
         {
             pv.RPC("SetPlayerBox", RpcTarget.AllBuffered, uiManager.photonManager.userName);
+            backGroundImg.color = Color.yellow;
+        }
+        else
+        {
+            backGroundImg.color = Color.gray;
         }
     }
 
