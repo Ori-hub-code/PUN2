@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     public Transform textBoxParent;
     public Transform playerNameParent;
     public GameObject infoBox;
+    public Scrollbar scrollbar;
 
     // ΩÃ±€≈Ê
     public static UIManager instance;

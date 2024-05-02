@@ -144,6 +144,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         if(!uiManager.textInput.text.IsNullOrEmpty())
         {
             PhotonNetwork.Instantiate(chatBoxPrefab.name, transform.position, Quaternion.identity, 0);
+
+            uiManager.scrollbar.value = 0; // 채팅 보낼 시 scroll bar 를 content 맨 아래로 위치
         } 
         else
         {
