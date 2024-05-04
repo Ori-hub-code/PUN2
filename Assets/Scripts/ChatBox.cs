@@ -34,14 +34,14 @@ public class ChatBox : MonoBehaviour
             chatBackImage.color = Color.yellow;
 
             pv.RPC("SetText", RpcTarget.AllBuffered, uiManager.textInput.text);
+
+            uiManager.textInput.text = ""; // input field 초기화
         } 
         else
         {
             verticalLayoutGroup.childAlignment = TextAnchor.UpperLeft;
             chatBackImage.color = Color.gray;
         }
-
-        uiManager.textInput.text = ""; // input field 초기화
     }
 
     [PunRPC]

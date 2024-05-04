@@ -94,8 +94,6 @@ public class UIManager : MonoBehaviour
             }
         }
 
-
-
         obj.anchorMin = nextMin;
         obj.anchorMax = nextMax;
 
