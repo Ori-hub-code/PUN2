@@ -26,21 +26,21 @@ public class ChatBox : MonoBehaviour
 
     private void OnEnable()
     {
-        transform.SetParent(uiManager.textBoxParent);
+        transform.SetParent(uiManager.textBoxParent); // 부모 설정
 
         if(pv.IsMine)
         {
-            verticalLayoutGroup.childAlignment = TextAnchor.UpperRight;
-            chatBackImage.color = Color.yellow;
+            verticalLayoutGroup.childAlignment = TextAnchor.UpperRight; // 본인 채팅은 오른쪽에 배치
+            chatBackImage.color = Color.yellow; // 본인 채팅은 노란색
 
-            pv.RPC("SetText", RpcTarget.AllBuffered, uiManager.textInput.text);
+            pv.RPC("SetText", RpcTarget.AllBuffered, uiManager.textInput.text); // 본인 데이터로 텍스트 적용
 
             uiManager.textInput.text = ""; // input field 초기화
         } 
         else
         {
-            verticalLayoutGroup.childAlignment = TextAnchor.UpperLeft;
-            chatBackImage.color = Color.gray;
+            verticalLayoutGroup.childAlignment = TextAnchor.UpperLeft; // 상대 채팅은 왼쪽에 배치
+            chatBackImage.color = Color.gray; // 상대 채팅 배경은 회색
         }
     }
 

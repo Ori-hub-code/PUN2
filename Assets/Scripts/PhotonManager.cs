@@ -155,6 +155,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
 
     // 퇴장 시 관련 데이터 삭제
+    // RoomOtion 으로 데이터가 자동 삭제되는 걸 막았으므로, PlayerNameBox 는 직접 삭제
     [PunRPC]
     void DeleteMyData(int actorNum)
     {

@@ -11,14 +11,14 @@ public class UIManager : MonoBehaviour
     public PhotonManager photonManager;
 
     [Header("# Object")]
-    public GameObject loginCanvas;
-    public GameObject chattingCanvas;
-    public TMP_InputField userIDInput;
-    public TMP_InputField textInput;
-    public Transform textBoxParent;
-    public Transform playerNameParent;
-    public GameObject infoBox;
-    public Scrollbar scrollbar;
+    public GameObject loginCanvas; // 로그인 창
+    public GameObject chattingCanvas; // 채팅 창
+    public TMP_InputField userIDInput; // 이름 입력 inputField
+    public TMP_InputField textInput; // 채팅 입력 inputField
+    public Transform textBoxParent; // 생성된 채팅의 부모(Content)
+    public Transform playerNameParent; // 생성된 PlayerName 의 부모(Content)
+    public GameObject infoBox; // 오른쪽 정보창
+    public Scrollbar scrollbar; // 채팅창 스크롤 바
 
     // 싱글톤
     public static UIManager instance;
@@ -42,6 +42,7 @@ public class UIManager : MonoBehaviour
     {
         RectTransform rectTransform = infoBox.GetComponent<RectTransform>();
 
+        // Anchor 초기화
         Vector2 openAnchorMin = new Vector2(0.7f, 0);
         Vector2 openAnchorMax = new Vector2(1, 1);
         Vector2 closeAnchorMin = new Vector2(1, 0);
