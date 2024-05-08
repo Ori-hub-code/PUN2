@@ -45,7 +45,16 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         Debug.Log($"PhotonNetwork.InLobby = {PhotonNetwork.InLobby}"); // 로비 접속 여부 true , false 출력 -> 접속 후라서 true
 
-        PhotonNetwork.JoinRandomRoom(); // 랜덤 매치메이킹 기능 제공
+        //PhotonNetwork.JoinRandomRoom(); // 랜덤 매치메이킹 기능 제공
+
+        // 룸의 속성 정의
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 20;              // 최대 접속자 수 : 20명
+        roomOptions.IsOpen = true;                // 룸의 오픈 여부
+        roomOptions.IsVisible = true;             // 로비에서 룸 목록에 노출 시킬지 여부
+        roomOptions.CleanupCacheOnLeave = false;  // 포톤 서버를 종료해도 본인이 생성한 오브젝트를 자동으로 삭제 안함.
+
+        PhotonNetwork.JoinOrCreateRoom("2001565", roomOptions, null);
     }
 
     // 랜덤한 룸 입장이 실패했을 경우 호출되는 콜백 함수
@@ -155,6 +164,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
 
     // 퇴장 시 관련 데이터 삭제
+    // RoomOtion 으로 데이터가 자동 삭제되는 걸 막았으므로, PlayerNameBox 는 직접 삭제
     [PunRPC]
     void DeleteMyData(int actorNum)
     {

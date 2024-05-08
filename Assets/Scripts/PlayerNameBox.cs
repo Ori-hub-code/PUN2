@@ -27,13 +27,15 @@ public class PlayerNameBox : MonoBehaviour
 
         if(pv.IsMine)
         {
-            pv.RPC("SetPlayerBox", RpcTarget.AllBuffered, uiManager.photonManager.userName);
+            pv.RPC("SetPlayerBox", RpcTarget.AllBuffered, uiManager.photonManager.userName); // 본인 데이터로 텍스트 설정
             backGroundImg.color = Color.yellow;
         }
         else
         {
             backGroundImg.color = Color.gray;
         }
+
+        this.gameObject.transform.localScale = new Vector3(1, 1, 1);
     }
 
     [PunRPC]
