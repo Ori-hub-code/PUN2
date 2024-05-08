@@ -30,14 +30,8 @@ public class ChatBox : MonoBehaviour
 
         if(pv.IsMine)
         {
-<<<<<<< HEAD
-            verticalLayoutGroup.childAlignment = TextAnchor.UpperRight;
-            chatBackImage.color = Color.yellow;
-            chatBackImage.sprite = uiManager.rightChat;
-=======
             verticalLayoutGroup.childAlignment = TextAnchor.UpperRight; // 본인 채팅은 오른쪽에 배치
             chatBackImage.color = Color.yellow; // 본인 채팅은 노란색
->>>>>>> 5f81e5cb2a60cb40cf28ea8f596a89605fcdb527
 
             pv.RPC("SetText", RpcTarget.AllBuffered, uiManager.textInput.text); // 본인 데이터로 텍스트 적용
 
@@ -45,17 +39,9 @@ public class ChatBox : MonoBehaviour
         } 
         else
         {
-<<<<<<< HEAD
-            verticalLayoutGroup.childAlignment = TextAnchor.UpperLeft;
-            chatBackImage.color = Color.gray;
-            chatBackImage.sprite = uiManager.leftChat;
-=======
             verticalLayoutGroup.childAlignment = TextAnchor.UpperLeft; // 상대 채팅은 왼쪽에 배치
             chatBackImage.color = Color.gray; // 상대 채팅 배경은 회색
->>>>>>> 5f81e5cb2a60cb40cf28ea8f596a89605fcdb527
         }
-
-        this.gameObject.transform.localScale = new Vector3(1, 1, 1);
     }
 
     [PunRPC]

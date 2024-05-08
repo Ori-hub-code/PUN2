@@ -11,17 +11,6 @@ public class UIManager : MonoBehaviour
     public PhotonManager photonManager;
 
     [Header("# Object")]
-<<<<<<< HEAD
-    public GameObject loginCanvas;
-    public GameObject chattingCanvas;
-    public TMP_InputField userIDInput;
-    public TMP_InputField textInput;
-    public Transform textBoxParent;
-    public Transform playerNameParent;
-    public GameObject infoBox;
-    public GameObject infoBackGround;
-    public Scrollbar scrollbar;
-=======
     public GameObject loginCanvas; // 로그인 창
     public GameObject chattingCanvas; // 채팅 창
     public TMP_InputField userIDInput; // 이름 입력 inputField
@@ -30,10 +19,6 @@ public class UIManager : MonoBehaviour
     public Transform playerNameParent; // 생성된 PlayerName 의 부모(Content)
     public GameObject infoBox; // 오른쪽 정보창
     public Scrollbar scrollbar; // 채팅창 스크롤 바
->>>>>>> 5f81e5cb2a60cb40cf28ea8f596a89605fcdb527
-
-    public Sprite leftChat;
-    public Sprite rightChat;
 
     // 싱글톤
     public static UIManager instance;
@@ -44,7 +29,6 @@ public class UIManager : MonoBehaviour
 
         loginCanvas.SetActive(true);
         chattingCanvas.SetActive(false);
-        infoBackGround.SetActive(false);
     }
 
     // 게임 종료 버튼
@@ -58,15 +42,11 @@ public class UIManager : MonoBehaviour
     {
         RectTransform rectTransform = infoBox.GetComponent<RectTransform>();
 
-<<<<<<< HEAD
-        Vector2 openAnchorMin = new Vector2(0.3f, 0);
-=======
         // Anchor 초기화
         Vector2 openAnchorMin = new Vector2(0.7f, 0);
->>>>>>> 5f81e5cb2a60cb40cf28ea8f596a89605fcdb527
         Vector2 openAnchorMax = new Vector2(1, 1);
         Vector2 closeAnchorMin = new Vector2(1, 0);
-        Vector2 closeAnchorMax = new Vector2(1.7f, 1);
+        Vector2 closeAnchorMax = new Vector2(1.3f, 1);
 
         // 닫혀있을 때
         if(rectTransform.anchorMin == closeAnchorMin && rectTransform.anchorMax == closeAnchorMax)
@@ -100,7 +80,6 @@ public class UIManager : MonoBehaviour
 
                 yield return null;
             }
-            infoBackGround.SetActive(true);
         }
         else
         {
@@ -114,7 +93,6 @@ public class UIManager : MonoBehaviour
 
                 yield return null;
             }
-            infoBackGround.SetActive(false);
         }
 
         obj.anchorMin = nextMin;
